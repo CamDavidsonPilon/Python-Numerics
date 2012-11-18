@@ -1,0 +1,1 @@
+See MCMC (specificaly mcmc_examples.py) folder for python implementation of copulas
