@@ -5,7 +5,7 @@ recombining trinomial tree model.
 
 It is surprisingly fast, thanks to cacheing the calls.
 
-example of use below.
+Example of use below.
 
 """
 
