@@ -1,26 +1,33 @@
 A collection of numerical python recipes
 ========================================
 
-###DiscreteOptionPricing
-Contains functions and classes to compute financial derivatives using discrete pricing theory.
+###Discrete Option Pricing
+Contains functions and classes to compute financial derivatives using discrete pricing theory. Mostly recursion.
 
-###DiscreteSDE
-Robust classes/methods to simulate stochastic differential equations using a discretization scheme.
+###Discrete SDE
+Robust classes/methods to simulate stochastic differential equations using a discretization scheme. Includes Euler, Milstein and Second-Order scheme. To be implemented into PyProcess.
 
-###MachineLearningScikitLearn
-Some scikit-learn-friendly machine learning classes.
+###Machine Learning Scikit Learn
+Some scikit-learn-friendly machine learning classes. 
 
-###MultinomialMarkovAndEncoding
-Create a multinomial markov chain (plus some awesome sampling and conditional sampling algos) from encoded data.
+###Monte Carlo
+A collection of tools to sample from a variety of distributions and evaluating integrals. Include bivariate copula sampling, markov chain monte carlo, and numerical integration (with variance reduction support). 
 
-###NumericalDerivatives
-Compute the derivative of functions a points using discrete schemes. Has a great recursive solution to solving the CDF to PDF problem.
+###Multinomial Markov And Encoding
+Create a multinomial markov chain (plus some awesome sampling and conditional sampling algos) from encoded data. See my [password analysis](http://www.camdp.com/blogs/modeling-password-creation) for a use and creation of it.
 
-###TimeSeriesAssociationRules
-A Framework to find association rules from human-generated features in time series.
+###Numerical Derivatives
+Compute the derivative of functions a points using discrete schemes. Has a great recursive solution to solving problem:
+>> Given a multivariate CDF, how can I computationally, and efficiently, find its pdf?
+
+This problem occurs in copula sampling often. 
+
+
+###Time Series Association Rules
+A Framework to find association rules from human-generated features in time series. A work in progress, but pretty cool so far.
 
 ###utils
-Some nice utils to have around
+Some nice utils to have around.
 
 
 
