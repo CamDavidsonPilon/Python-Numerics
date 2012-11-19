@@ -25,9 +25,11 @@ TimeSeriesAssociationRules
 --------------------------
 A Framework to find association rules from human-generated features in time series.
 
-utils
------
+###utils
+
 Some nice utils to have around
+
+
 
 Author:
 Cameron Davidson-Pilon
