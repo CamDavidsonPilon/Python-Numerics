@@ -54,7 +54,7 @@ def cdf2pdf( f, u, delta=0.001, kwargs={} ):
         u = np.array(args)
         return f(u, **kwargs)
     n = u.shape[0]
-    p= _pdfOrder4( _wrapper, u, delta)
+    p= _pdf( _wrapper, u, delta)
     return np.exp( np.log(p) - n*np.log( delta ) )
     #return p / delta**n
     
