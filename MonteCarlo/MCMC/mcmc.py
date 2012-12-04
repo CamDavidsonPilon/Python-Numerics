@@ -55,19 +55,20 @@ class MCMC(object):
             x_0: a starting location
             burn_in: the number of burn in steps
             dim: the dimension of the densities.
+            proposal_dist: the distibution to propose samples from. 
             
         methods:
             next() : generates and returns a random variate from the target_dist
             
             
         """
-        def __init__(self, target_dist, dim = 1, x_0 = None, burn_in = 100 ):
+        def __init__(self, target_dist, dim = 1, x_0 = None, burn_in = 100, proposal_dist = stats.norm(0,scale=1) ):
             self.target_dist = target_dist
             self.x = x_0
             self.burn_in = 100
             self.dim = dim
             self.uniform = stats.uniform()
-            self.std = 1
+            #self.std = 1
             self.proposals = 0
             self.accepted = 0
             
@@ -77,7 +78,7 @@ class MCMC(object):
             self._burn()
             
         def _normcdf(self, x_array):
-            return stats.norm.cdf( x_array, scale=self.std).prod()
+            return proposal_dist.cdf( x_array).prod()
         
         def _modify_step(self):
             #lets check our acceptance rate, and aim for .234, see http://www.maths.lancs.ac.uk/~sherlocc/Publications/rwm.final.pdf
