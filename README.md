@@ -1,6 +1,10 @@
 A collection of numerical python recipes
 ========================================
 
+###Damerau-Lenenshtein Distance
+An implementation of the DL distance, used to measure the "distance" (as defined by number of deletions, substitutions, transpositions and insertaions) between two strings. I use it to detect swear words and their misspellings.
+
+
 ###Discrete Option Pricing
 Contains functions and classes to compute financial derivatives using discrete pricing theory. Mostly recursion.
 
@@ -25,6 +29,7 @@ This problem occurs in copula sampling often.
 
 ###Time Series Association Rules
 A Framework to find association rules from human-generated features in time series. A work in progress, but pretty cool so far.
+
 
 ###utils
 Some nice utils to have around.
