@@ -10,8 +10,8 @@ def sample_pd_matrix( dim, avg_variance = 1, diag = np.array([]) ):
     diag: enter a dim-dimensional vector to use as the diagonal eigenvalues elements.
     """
     
-    #create a orthonormal basis 
-    Ob = gs( avg_variance*np.random.randn( dim,dim ) )
+    #create an orthonormal basis 
+    Ob = gs(np.random.randn( dim,dim ) )
     if not diag.any():
         """
         This uses the fact that the sum of varinaces/n == Trace(A)/n == sum of eigenvalues/n ~= E[ Gamma(1, 1/avg_variance) ] = avg_variance
@@ -22,7 +22,12 @@ def sample_pd_matrix( dim, avg_variance = 1, diag = np.array([]) ):
     return np.dot( Ob.T*diag.T, Ob )
     
 
-
+def return_lower_elements(A):
+    n = A.shape[0]
+    t = [ (i,j) for j in range(0,n) for i in range(j+1,n) ]
+    return np.array( [A[x] for x in t] )
+    
+    
 def deprecated(func):
     '''This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
