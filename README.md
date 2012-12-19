@@ -11,6 +11,9 @@ Contains functions and classes to compute financial derivatives using discrete p
 ###Discrete SDE
 Robust classes/methods to simulate stochastic differential equations using a discretization scheme. Includes Euler, Milstein and Second-Order scheme. To be implemented into PyProcess.
 
+###Estimators
+Some useful estimators of regression and others.
+
 ###Machine Learning Scikit Learn
 Some scikit-learn-friendly machine learning classes. 
 
@@ -27,9 +30,8 @@ Compute the derivative of functions a points using discrete schemes. Has a great
 This problem occurs in copula sampling often. 
 
 
-###Time Series Association Rules
-A Framework to find association rules from human-generated features in time series. A work in progress, but pretty cool so far.
-
+###Time Series
+Some time series helpers and utilities
 
 ###utils
 Some nice utils to have around.
