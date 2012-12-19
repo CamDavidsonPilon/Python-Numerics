@@ -1,6 +1,12 @@
 import numpy as np
 from sklearn.covariance import EllipticEnvelope
 
+"""
+
+Note: This shows less than benchmark (all identity) performace. The issue is I am maximizing the wrong thing. I 
+should be trying to maximize the partial-correlation. TODO
+
+"""
 
 np.seterr( all="raise")
 
