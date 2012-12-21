@@ -12,9 +12,12 @@ from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 
 
-def contour(x,y,z, lines = 18, linewidth = 2):
+def contour(x,y,z, linewidth = 2):
     """
+    Plots contours for non-evenly spaced data.
     x,y,z must be 1d arrays.
+    lines = # of contour lines (default 18 )
+    linewidth = line width of lines (default 2 )
     """
     
     assert x.shape[0] == y.shape[0] == z.shape[0], "arrays x,y,z must be the same size"
@@ -26,11 +29,11 @@ def contour(x,y,z, lines = 18, linewidth = 2):
     zi = griddata((x, y), z, (xi[None,:], yi[:,None]), method='cubic')
     # contour the gridded data, plotting dots at the randomly spaced data points.
     plt.figure()
-    CS = plt.contour(xi,yi,zi,18,linewidths=2)
+    CS = plt.contour(xi,yi,zi,linewidth=2)
     plt.clabel(CS, inline=1, fontsize=10)
 
     # plot data points.
-    plt.scatter(x,y,marker='o',c=z,s=20, alpha = 0.8)
+    plt.scatter(x,y,c=z,s=20, alpha = 0.7, edgecolors = "none")
     plt.xlim(x.min(),x.max())
     plt.ylim(y.min(),y.max())
     plt.show()
