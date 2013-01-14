@@ -2,7 +2,7 @@
 
 
 
-def MASE(training_series, testing_series, prediction_series, absolute = "absolute")
+def MASE(training_series, testing_series, prediction_series, absolute = "absolute"):
     """
     Computes the MEAN-ABSOLUTE SCALED ERROR forcast error for univariate time series prediction.
     
