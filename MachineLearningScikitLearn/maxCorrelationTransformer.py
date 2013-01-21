@@ -1,10 +1,13 @@
 import numpy as np
 from sklearn.covariance import EllipticEnvelope
+from sklearn.linear_model import LinearRegression as LR
 
 """
 
 Note: This shows less than benchmark (all identity) performace. The issue is I am maximizing the wrong thing. I 
 should be trying to maximize the partial-correlation. TODO
+
+To do this, we will use a greedy algorithm.
 
 """
 
@@ -55,7 +58,12 @@ class MaxCorrelationTransformer(object):
     
     
     """
-    def __init__(self,  transforms = dict_of_transforms, normalize01 = False, additional_transforms = {}, verbose=False, remove_outliers=False ):
+    def __init__(self,  transforms = dict_of_transforms, 
+                        normalize01 = False, 
+                        additional_transforms = {}, 
+                        verbose=False, 
+                        remove_outliers=False
+                        tol = 1e-2):
         self.transforms = transforms        
         self.verbose = verbose
         self.transforms.update( additional_transforms )
@@ -63,37 +71,33 @@ class MaxCorrelationTransformer(object):
         for fname, func in self.transforms.iteritems():
             self.transforms[ fname ] = _wrapper(func, verbose)
         
-        self.normalize01 = normalize01
-        self.remove_outliers = remove_outliers
+
+        self.tol = tol
         
         
     def fit(self, X, Y):
-
+        "to do"
+    
         n,d = X.shape
-        self._X = X
-        if self.normalize01:
-            X = _normalize01(X)
            
         self.transforms_ = ["identity"]*d
-        self.correlations_ = [0]*d
-        #change this so it is inline with the dictionary above.
-        for i in xrange(d):
-            x = X[:, i]
-            max_cor = abs(_corr(x, Y))
-            epsilon = 0.05
-            for fname, func in self.transforms.iteritems():
-                #cor = np.corrcoef( func(x)[:,None].T, Y.T )[1,0]
-                fx = func(x)
+        abs_partial_correlations_ = abs(partial_correlation_via_inverse(X,Y)[-1, 0:-1])
+        temp_abs_partial_correlations_ = -1e2*np.ones_like( abs_partial_correlations_ )
+        ix = np.arange( d) 
+        while abs( temp_abs_partial_correlations_.sum() - abs_partial_correlations_.sum() ) > self.tol:
+            for i in xrange(d):
+                _X = X[:,i]
+                Z = X[:, ix != i]
+                for transform_name, transform in self.transforms:
+                    no_error, f_X = transform( _X )
+                    if no_error:
+                        pc = abs( partial_correlation( f_X, Y, Z ) )
+                        if  pc > abs_partial_correlations_[i]:
+                            temp_abs_partial_correlations_[i] = pc
+                            self.transforms_[i] = transform_name
+            
+                            
 
-                    
-                cor = _corr( fx, Y, self.remove_outliers)
-                if abs(cor) > max_cor + epsilon :
-                    self.correlations_[i] = cor
-                    max_cor = abs(cor)
-                    self.transforms_[i] = fname
-                    epsilon = 0
-                    
-        self.transformedX = self.transform( X )
         return self
     
 
@@ -136,21 +140,38 @@ def _wrapper(f, verbose = False):
         except FloatingPointError as e:
             if verbose:
                 print "Error.", e
-            return np.zeros_like(x)
+            return False, np.zeros_like(x)
         if ( ~ np.isfinite( u  ) ).sum() > 0:
             if verbose:
                 print "Infinite."
-            return np.zeros_like(x)
+            return False, np.zeros_like(x)
         else:
-            return u
+            return True, u
     return g
     
+def partial_correlation(X, Y, Z):
+    """
+    This computes the partial-correlation between X and Y, with covariates Z.
+    """
+    lr1 = LR()
+    lr2 = LR()
+    lr1.fit(Z,X)
+    lr2.fit(Z,Y)
     
-def _normalize01(X):
+    return np.corrcoef( Y - lr1.predict(Z), X - lr2.predict(Z) )[0,1]
     
-    newX = X.copy()
-    
-    newX = newX - newX.min(axis=0)
-    newX = newX/newX.max(axis=0)
-    return newX
-    
+def partial_correlation_via_inverse(X, Y=None):
+    try:
+        X = np.concatenate([ X,Y], axis=1 )
+    except:
+        pass
+    return -cov2corr( np.linalg.inv(np.dot(X.T, X) ) )
+
+def cov2corr( A ):
+    """
+    covariance matrix to correlation matrix.
+    """
+    d = np.sqrt(A.diagonal())
+    A = ((A.T/d).T)/d
+    #A[ np.diag_indices(A.shape[0]) ] = np.ones( A.shape[0] )
+    return A

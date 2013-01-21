@@ -2,7 +2,7 @@
 
 
 
-def MASE(training_series, testing_series, prediction_series, absolute = "absolute"):
+def MASE(training_series, testing_series, prediction_series):
     """
     Computes the MEAN-ABSOLUTE SCALED ERROR forcast error for univariate time series prediction.
     
@@ -17,11 +17,7 @@ def MASE(training_series, testing_series, prediction_series, absolute = "absolut
     """
     print "Needs to be tested."
     n = training_series.shape[0]
-    d = np.abs( np.diff( training_series ) )/(n-1)
+    d = np.abs(  training_series.diff() ).sum()/(n-1)
     
-    if absolute == "absolute":
-        errors = np.abs(testing_series - prediction_series )
-        return np.mean( errors )/d
-    elif absolute == "squares":
-        errors = (testing_series - prediction_series)**2
-        return np.sqrt( np.mean( errors ) )/d
+    errors = np.abs(testing_series - prediction_series )
+    return errors.mean()/d
