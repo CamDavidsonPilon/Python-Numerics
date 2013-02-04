@@ -12,7 +12,7 @@ from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 
 
-def contour(x,y,z, linewidth = 2):
+def contour(x,y,z, linewidth = 2, labels = None):
     """
     Plots contours for non-evenly spaced data.
     x,y,z must be 1d arrays.
@@ -31,9 +31,12 @@ def contour(x,y,z, linewidth = 2):
     plt.figure()
     CS = plt.contour(xi,yi,zi,linewidth=2)
     plt.clabel(CS, inline=1, fontsize=10)
-
+    
+    if labels:
+        plt.xlabel(labels[0])
+        plt.ylabel(labels[1])
     # plot data points.
-    plt.scatter(x,y,c=z,s=20, alpha = 0.7, edgecolors = "none")
+    plt.scatter(x,y,c=z,s=60, alpha = 0.7, edgecolors = "none")
     plt.xlim(x.min(),x.max())
     plt.ylim(y.min(),y.max())
     plt.show()

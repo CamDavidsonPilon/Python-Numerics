@@ -1,7 +1,7 @@
 
 from itertools import combinations_with_replacement, combinations
 
-def create_pairwise_data( df, ignore = None, squares = True):
+def create_pairwise_data( df, ignore = [], squares = True):
     """
     df: a dataframe 
     ignore: an iterable of columns to not make quad features out of.

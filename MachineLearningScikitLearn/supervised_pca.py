@@ -13,7 +13,7 @@ from time import clock
 
 
 
-class Supervised_PCA(BaseEstimator, TransformerMixin):
+class SupervisedPCA(BaseEstimator, TransformerMixin):
     """Supervised Principal component analysis (SPCA)
 
     Non-linear dimensionality reduction through the use of kernels.
@@ -80,10 +80,10 @@ class Supervised_PCA(BaseEstimator, TransformerMixin):
         
         
     def transform(self, X):
-	"""
-	Returns a new X, X_trans, based on previous self.fit() estimates
-	"""
-	return X.dot( self.alphas_ )  
+        """
+        Returns a new X, X_trans, based on previous self.fit() estimates
+        """
+        return X.dot( self.alphas_ )  
         
     
     def fit(self,X,Y):
@@ -103,7 +103,7 @@ class Supervised_PCA(BaseEstimator, TransformerMixin):
         
     def _fit(self, X, Y):
         #find kenerl matrix of Y
-	K = self.centerer.fit_transform(self._get_kernel(Y))
+        K = self.centerer.fit_transform(self._get_kernel(Y))
         #scale X
         X_scale = scale(X)
         
@@ -116,21 +116,22 @@ class Supervised_PCA(BaseEstimator, TransformerMixin):
         #compute eigenvalues of X^TKX
         
         M = (X.T).dot(K).dot(X)
-	if self.eigen_solver == 'auto':
-            if M.shape[0] > 200 and n_components < 10:
-                eigen_solver = 'arpack'
+        print "here"
+        if self.eigen_solver == 'auto':
+                if M.shape[0] > 200 and n_components < 10:
+                    eigen_solver = 'arpack'
+                else:
+                    eigen_solver = 'dense'
             else:
-                eigen_solver = 'dense'
-        else:
-            eigen_solver = self.eigen_solver
+                eigen_solver = self.eigen_solver
 
-        if eigen_solver == 'dense':
-            self.lambdas_, self.alphas_ = linalg.eigh(
-                M, eigvals=(M.shape[0] - n_components, M.shape[0] - 1))
-        elif eigen_solver == 'arpack':
-            self.lambdas_, self.alphas_ = eigsh(M, n_components,
-                                                which="LA",
-                                                tol=self.tol)
+            if eigen_solver == 'dense':
+                self.lambdas_, self.alphas_ = linalg.eigh(
+                    M, eigvals=(M.shape[0] - n_components, M.shape[0] - 1))
+            elif eigen_solver == 'arpack':
+                self.lambdas_, self.alphas_ = eigsh(M, n_components,
+                                                    which="LA",
+                                                    tol=self.tol)
         indices = self.lambdas_.argsort()[::-1]
         self.lambdas_ = self.lambdas_[indices]
         self.alphas_ = self.alphas_[:, indices]
@@ -158,7 +159,7 @@ class Supervised_PCA(BaseEstimator, TransformerMixin):
     
         
          
-class Kernel_Supervised_PCA(    BaseEstimator, TransformerMixin):    
+class KernelSupervisedPCA(    BaseEstimator, TransformerMixin):    
 
     """Kernel Supervised Principal component analysis (SPCA)
 
