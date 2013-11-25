@@ -34,7 +34,7 @@ def Snj( S_0, n ,j, sigma_max, r, t_delta):
 def price( style, F, sigma_max, sigma_min, delta_t, r, S_0, n, j, N):
     """
     This is the main function.
-        style: either "min" or "max", get the min or maximum price rescpectivly.
+        style: either "min" or "max", get the min or maximum price respectively.
         F: the final payoff function
         sigma_max, sigma_min: the max and min volatility
         delta_t: the length of time step
