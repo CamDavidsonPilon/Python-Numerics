@@ -2,7 +2,7 @@ A collection of numerical python recipes
 ========================================
 
 ###Damerau-Lenenshtein Distance
-An implementation of the DL distance, used to measure the "distance" (as defined by number of deletions, substitutions, transpositions and insertaions) between two strings. I use it to detect swear words and their misspellings.
+An implementation of the DL distance, used to measure the "distance" (as defined by number of deletions, substitutions, transpositions and insertions) between two strings. I use it to detect swear words and their misspellings.
 
 
 ###Discrete Option Pricing
