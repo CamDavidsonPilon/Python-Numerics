@@ -61,7 +61,7 @@ class Blender( object):
  
     def fit(self, data, response, dict_of_additional_variables={}):
         """
-            data: the data matix, shape (n,d)
+            data: the data matrix, shape (n,d)
             response: the response vector (n,)
             dict_of_additional_variables:
                 a dictionary with the keys the model names (optional to include), and the items are of the form:
