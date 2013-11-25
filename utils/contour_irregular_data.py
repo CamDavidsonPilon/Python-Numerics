@@ -1,7 +1,7 @@
 """
 contour_irregular_data.py
 
-This module/function lets you plot irregularlly spaced data by using an interpoltation scheme
+This module/function lets you plot irregularlly spaced data by using an interpolation scheme
 
 Code taken/hacked modified from http://www.scipy.org/Cookbook/Matplotlib/Gridding_irregularly_spaced_data
 """
