@@ -31,7 +31,7 @@ from time import clock
 
 class DiscreteSDE( object ):
     """
-    initalize:
+    initialize:
         drift: the drift function, univariate, must accept and return array of same size.
         diffusion the diffusion function, univariate, must accept and return array of same size.
         method: a string in ["euler", "milstein", "second-order" ]
